@@ -5,21 +5,33 @@
   let playerOne = "X";
   let playerTwo = "O";
   let currentUser = playerOne;
-  
+  let turnCounter = 0
+  let isGameOver = false;
+
   function playerChange(event) {
-    if (currentUser == playerOne) {
+    if (!isGameOver) {
+    if (currentUser == playerOne && gameBoard[event.target.id]=='') {
       console.log(event)
       event.target.innerText = "X"
+      gameBoard[event.target.id] = currentUser
         currentUser = playerTwo;
-    } else {
+        turnCounter++
+    } else if (gameBoard[event.target.id]==''){
       event.target.innerText = "O"
+      gameBoard[event.target.id] = currentUser
         currentUser = playerOne;
+        turnCounter++
     }
+    console.log(gameBoard)
+    checkForWinners()
   }
+}
+
 
 function cellClick(event) {
   console.log(event.target)
 }
+
   // should determine who the current player is x or o then insert 
   // insert inner text based on who the current player is
   // push into active players array the id 
@@ -43,37 +55,60 @@ function cellClick(event) {
 //  for all moves made by either; all set and checked at end to check for tie
 let gameBoard = ['', '', '', '', '', '', '', '', ''] 
 
+
+
 // check winning combos
-let winningCombos = [
-  [0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
-  [0, 3, 6],
-  [1, 4, 7],
-  [2, 5, 8],
-  [0, 4, 8],
-  [2, 4, 6]
-]
 
 const checkForWinners = () => {
-  if (gridContainer[0] == gridContainer[1] && gridContainer[1] == gridContainer[2]) {
+  if (gameBoard[0] == 'X'  && gameBoard[1] == 'X' && gameBoard[2] == 'X')  {
+    isGameOver = true
     console.log('winner row1')
-} else if (gridContainer[3] == gridContainer[4] && gridContainer[4] == gridContainer[5]) {
+} else if (gameBoard[3] == 'X'  && gameBoard[4] == 'X' && gameBoard[5] == 'X') {
     console.log('winner row2')
-} else if (gridContainer[6] == gridContainer[7] && gridContainer[7] == gridContainer[8]) {
+} else if (gameBoard[6] == 'X'  && gameBoard[7] == 'X' && gameBoard[8] == 'X') {
   console.log('winner row3')
-} else if (gridContainer[0] == gridContainer[3] && gridContainer[3] == gridContainer[6]) {
+  isGameOver = true
+} else if (gameBoard[0] == 'X'  && gameBoard[3] == 'X' && gameBoard[6] == 'X') {
   console.log('winner column1')
-} else if (gridContainer[1] == gridContainer[4] && gridContainer[4] == gridContainer[7]) {
+  isGameOver = true
+} else if (gameBoard[1] == 'X'  && gameBoard[4] == 'X' && gameBoard[7] == 'X') {
   console.log('winner column2')
-} else if (gridContainer[2] == gridContainer[5] && gridContainer[5] == gridContainer[8]) {
+  isGameOver = true
+} else if (gameBoard[2] == 'X'  && gameBoard[5] == 'X' && gameBoard[8] == 'X') {
   console.log('winner column3')
-} else if (gridContainer[0] == gridContainer[4] && gridContainer[4] == gridContainer[8]) {
+  isGameOver = true
+} else if (gameBoard[0] == 'X'  && gameBoard[4] == 'X' && gameBoard[8] == 'X') {
   console.log('winner diagonal1')
-} else if (gridContainer[6] == gridContainer[4] && gridContainer[4] == gridContainer[2]) {
+  isGameOver = true
+} else if (gameBoard[2] == 'X'  && gameBoard[4] == 'X' && gameBoard[6] == 'X') {
   console.log('winner diagonal2')
-} else if (!gridgridContainer.includes("")) {
-    drawGame();
+  isGameOver = true
+} else if (gameBoard[0] == 'O'  && gameBoard[1] == 'O' && gameBoard[2] == 'O')  {
+    console.log('winner row1')
+    isGameOver = true
+} else if (gameBoard[3] == 'O'  && gameBoard[4] == 'O' && gameBoard[5] == 'O') {
+    console.log('winner row2')
+    isGameOver = true
+} else if (gameBoard[6] == 'O'  && gameBoard[7] == 'O' && gameBoard[8] == 'O') {
+  console.log('winner row3')
+  isGameOver = true
+} else if (gameBoard[0] == 'O'  && gameBoard[3] == 'O' && gameBoard[6] == 'O') {
+  console.log('winner column1')
+  isGameOver = true
+} else if (gameBoard[1] == 'O'  && gameBoard[4] == 'O' && gameBoard[7] == 'O') {
+  console.log('winner column2')
+  isGameOver = true
+} else if (gameBoard[2] == 'O'  && gameBoard[5] == 'O' && gameBoard[8] == 'O') {
+  console.log('winner column3')
+  isGameOver = true
+} else if (gameBoard[0] == 'O'  && gameBoard[4] == 'O' && gameBoard[8] == 'O') {
+  console.log('winner diagonal1')
+  isGameOver = true
+} else if (gameBoard[2] == 'O'  && gameBoard[4] == 'O' && gameBoard[6] == 'O') {
+  console.log('winner diagonal2')
+  isGameOver = true
+} else if (turnCounter==9) {
+  console.log("drawGame")
 }
 }
 
